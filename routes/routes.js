@@ -61,12 +61,12 @@ users.post('/register', (req, res) => {
               res.status(400).json({error:err.message})
             })
         })
-      } else {
-        res.json({ error: 'User already exists' })
+      } else if(user){
+        res.status(400).json({ error: 'User already exists' })
       }
     })
     .catch(err => {
-      res.send('error: ' + err)
+      res.send('error: ' + err.message)
     })
 })
 

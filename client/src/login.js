@@ -23,8 +23,8 @@ const Login = function Login() {
     const [redirect, setRedirect] = useState(false);
     const [status, setStatus] = useState(false);
     const [login, setLogin] = useState(false);
-
-
+    const [errorMessage,setErrorMessage]=useState(null);
+    const [registerError,setRegisterError]=useState(false)
     const onSubmitRegister=function onSubmitRegister(data,e){
         e.preventDefault();
         console.log(data);
@@ -35,7 +35,16 @@ const Login = function Login() {
                     setStatus(true);
                 }
                 ).catch((err) => {
+                    setRegisterError(true)
+                    signup(true);
                     console.log(err.message)
+                    setErrorMessage(err.message)
+                
+                   
+                    
+                    
+
+                    
                 })
             }
             catch (e) {
@@ -49,22 +58,13 @@ const Login = function Login() {
         console.log(e)
         e.preventDefault();
         console.log(data);
-
-       
-
-
-        let isCancelled = false;
-         
                 
                 LoginApi(data).then((res) => {
 
                     console.log(res.data.token);
-
                     if (res.data.status === 'Ok') {
                         setRedirect(true);
                     }
-
-
                     setToken(localStorage.setItem("token", JSON.stringify(res.data.token)))
 
                 }).catch((err) => {
@@ -88,7 +88,7 @@ const Login = function Login() {
 
     const cancelServerErrorModal = function cancelServerErrorModal() {
         setError(false);
-        setSignUp(false);
+        setSignUp(true);
         setLogin(false)
     }
 
@@ -101,7 +101,8 @@ const Login = function Login() {
             {error &&
                 <MyErrorModal title="Incorrect Credentials" positiveActionText={"close"} content="kindly enter the right password!" redirect={cancelServerErrorModal} />
             }
-
+                {registerError && <MyErrorModal title="Incorrect Credentials" positiveActionText={"close"} content="Already Existing " redirect={cancelServerErrorModal} />
+            }
             {!signup ?
                 <div className="middleCenterClass">
                     <div className="ui segment">

@@ -191,7 +191,7 @@ const App = () => {
           </div>
         </div>
         <div className="ui grid">
-          <div className="ui  three column row wide">
+          <div className="ui  two column row wide">
             <div className="column">
             <div className="ui fluid icon input">
               <input type="text" placeholder="Search..." onChange={SearchText} />
