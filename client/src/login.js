@@ -25,6 +25,7 @@ const Login = function Login() {
     const [login, setLogin] = useState(false);
     const [errorMessage,setErrorMessage]=useState(null);
     const [registerError,setRegisterError]=useState(false)
+
     const onSubmitRegister=function onSubmitRegister(data,e){
         e.preventDefault();
         console.log(data);
@@ -85,10 +86,15 @@ const Login = function Login() {
     //    }
 
 
-
-    const cancelServerErrorModal = function cancelServerErrorModal() {
+    const cancelRegisterErrorModal = function cancelRegisterErrorModal() {
         setError(false);
         setSignUp(true);
+        setLogin(false)
+    }
+    
+    const cancelServerErrorModal = function cancelServerErrorModal() {
+        setError(false);
+        setSignUp(false);
         setLogin(false)
     }
 
@@ -101,7 +107,7 @@ const Login = function Login() {
             {error &&
                 <MyErrorModal title="Incorrect Credentials" positiveActionText={"close"} content="kindly enter the right password!" redirect={cancelServerErrorModal} />
             }
-                {registerError && <MyErrorModal title="Incorrect Credentials" positiveActionText={"close"} content="Already Existing " redirect={cancelServerErrorModal} />
+                {registerError && <MyErrorModal title="Incorrect Credentials" positiveActionText={"close"} content="Already Existing " redirect={cancelRegisterErrorModal} />
             }
             {!signup ?
                 <div className="middleCenterClass">
